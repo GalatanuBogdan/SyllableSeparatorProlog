@@ -1,84 +1,83 @@
-# Documentația Proiectului Syllables
+# Syllables Project Documentation
 
-## Descriere proiect
+## Project Description
 
-Acest proiect realizat in cadrul materiei Programare Bazata pe Reguli, reprezintă implementarea unui sistem în Prolog capabil să gestioneze regulile de despărțire în silabe pentru cuvinte din limba română.
+This project, developed as part of the Rule-Based Programming course, represents a Prolog system capable of managing syllable separation rules for Romanian words.
 
-## Cerințe
+## Requirements
 
-Implementați un sistem în Prolog capabil să:
+Implement a Prolog system capable of:
 
-1. Citească un cuvânt și să afișeze versiunea acestuia despărțită în silabe.
-   - Exemplu: `cuvânt` -> `cu-vânt`
+1. Reading a word and displaying its syllable-separated version.
+   - Example: `cuvânt` -> `cu-vânt`
 
-2. Sa se verifice corectitudinea daca despartirea unui cuvant in silabe este corecta.
-   - Exemplu1: `cre-ion` -> `corect`
-   - Exemplu2: `crei-on` -> `incorect`
-    
-3. Introdusa o multime de silabe, sa se genereze toate combinatiile posibile de cuvinte care respecta regulile de despartire in silabe din limba romana.
+2. Checking the correctness of a word's syllable separation.
+   - Example 1: `cre-ion` -> `correct`
+   - Example 2: `crei-on` -> `incorrect`
 
+3. Given a set of syllables, generate all possible combinations of words that respect the Romanian language's syllable separation rules.
 
-## Pasi necesari pentru executia codului in prolog:
+## Steps to execute the Prolog code:
 
-1. Instalați Prolog 8.5.20-1 pe sistemul dumneavoastră.
+1. Install Prolog 8.5.20-1 on your system.
 
-2. Deschideti consola SWI-Prolog in care puteți apela una dintre cele 3 functionalități:
-   - 2.1 Despartirea unui cuvant in silabe:
+2. Open the SWI-Prolog console, where you can perform one of the following functionalities:
+
+   - 2.1 Syllable Separation of a Word:
    
      ```prolog
-     ?- desparte_in_silabe("cuvant", Silabe).  % -> cu-vant
-     ?- desparte_in_silabe("minunat", Silabe).  % -> mi-nu-nat
-     ?- desparte_in_silabe("facultate", Silabe).  % -> fa-cul-ta-te
+     ?- syllable_separation("cuvant", Syllables).  % -> cu-vant
+     ?- syllable_separation("minunat", Syllables).  # -> mi-nu-nat
+     ?- syllable_separation("facultate", Syllables).  # -> fa-cul-ta-te
      ```
-     "cuvant" poate fi înlocuit de cuvantul dorit pentru despartire.
+     "cuvant" can be replaced with the desired word for separation.
      
-   - 2.2 Verificarea unui cuvant să fie despartit corect in silabe:
+   - 2.2 Checking Correctness of a Syllable Separation:
    
      ```prolog
-     ?- verificare_despartire_corecta("silaba1-silaba2-silaba3-...-silabaN", Cuvant). % exemplu general
-     ?- verificare_despartire_corecta("mi-nu-nat", Cuvant). % despartirea in silabe este corecta
-     ?- verificare_despartire_corecta("fa-cul-ta-te", Cuvant). % despartirea in silabe este corecta
-     ?- verificare_despartire_corecta("fa-culta-te", Cuvant). % despartirea in silabe nu este corecta
+     ?- verify_correct_separation("syllable1-syllable2-syllable3-...-syllableN", Word). # general example
+     ?- verify_correct_separation("mi-nu-nat", Word). # correct syllable separation
+     ?- verify_correct_separation("fa-cul-ta-te", Word). # correct syllable separation
+     ?- verify_correct_separation("fa-culta-te", Word). # incorrect syllable separation
      ```
      
-     "silaba1-silaba2-silaba3-...-silabaN" reprezintă toate silabele separate prin cratime, care alcătuiesc cuvântul pentru care se dorește verificarea.
+     "syllable1-syllable2-syllable3-...-syllableN" represents all syllables separated by hyphens, forming the word for which the check is desired.
      
-   - 2.3 Furnizarea tuturor combinatiilor valide din punct de vedere al despartirii in silabe care se pot forma cu o multime de silabe:
+   - 2.3 Generating All Valid Combinations of Syllable Separation:
    
      ```prolog
-     ?- permutare_lista_silabe("silaba1-silaba2-silaba3-...-silabaN", Cuvinte). % exemplu general
-     ?- permutare_lista_silabe("u-re-che", Cuvinte). % ureche, uchere
-     ?- permutare_lista_silabe("ca-mi-la", Cuvinte). % camila, calami, micala, milaca, lacami, lamica
+     ?- generate_syllable_combinations("syllable1-syllable2-syllable3-...-syllableN", Words). # general example
+     ?- generate_syllable_combinations("u-re-che", Words). # ureche, uchere
+     ?- generate_syllable_combinations("ca-mi-la", Words). # camila, calami, micala, milaca, lacami, lamica
      ```
      
-     "silaba1-silaba2-silaba3-...-silabaN" reprezintă toate silabele separate prin cratime, care alcătuiesc multimea de silabe pentru care se dorește generarea.
+     "syllable1-syllable2-syllable3-...-syllableN" represents all syllables separated by hyphens, forming the set of syllables for which the generation is desired.
 
-## Pasi necesari pentru dechiderea interfatei grafice:
-  1. Instalați Python 3.9.13 pe sistemul dumneavoastră.
-  2. Rulati de la linia de comanda fisierul main.py folosind comanda:
+## Steps to open the graphical interface:
+  1. Install Python 3.9.13 on your system.
+  2. Run the main.py file from the command line using the following command:
     - ```
      python .\main.py
     ```
 
-## Motivarea alegerilor de implementare:
-  1. Pentru a avea un program bine structurat, pe partea de prolog a fost implementata cate o regula pentru fiecare cerinta in parte dar si pentru fiecare regula gramaticala.
-  2. Multimea de silabe este construita cu ajutorul listelor, acestea fiind usor de utilizat.
-  3. Se merita specificat ca a fost folosita metoda "permutation" pentru crearea tutoror posibilitatilor de permutare ale silabelor date.
-  4. Pentru o usurinta in implementarea interfetei grafice am ales sa folosim libraria tkinter din python
-  5. Pentru integrarea prologului in cadrul aplicatiei tkinter am ales sa folosim libraria pyswip din modulul Prolog. Am ales aceasta librarie deoarece libraria este foarte bine documentata aici https://github.com/yuce/pyswip.
+## Rationale for Implementation Choices:
+  1. To have a well-structured program, separate rules were implemented in Prolog for each requirement and each grammatical rule.
+  2. The set of syllables is constructed using lists, which are easy to work with.
+  3. It is worth mentioning that the "permutation" method was used to create all possible permutations of the given syllables.
+  4. For ease of implementing the graphical interface, the tkinter library from Python was chosen.
+  5. To integrate Prolog into the tkinter application, the pyswip library from the Prolog module was used. This library was chosen because it is well-documented, and more information can be found [here](https://github.com/yuce/pyswip).
 
+## Contributions
 
-## Contribuții
-
-La acest proiect au contribuit:
+The following individuals contributed to this project:
 1. Dobre Roxana
 2. Dogaru Simona
 3. Ghioc Otilia
 4. Galatanu Bogdan
 5. Macsim Oana
 
-Intreaga echipa recunoaste contributii speciale din partea Otiliei Ghioc si ale lui Bogdan Galatanu care s-au remarcat prin implicarea deosebita in crearea acestui proiect.
+The entire team acknowledges special contributions from Otilia Ghioc and Bogdan Galatanu, who demonstrated exceptional involvement in creating this project.
 
-## Licență
+## License
 
-Acest proiect este licențiat sub [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
